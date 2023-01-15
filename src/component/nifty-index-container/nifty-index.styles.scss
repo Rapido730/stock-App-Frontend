@@ -1,0 +1,44 @@
+.container {
+  .nifty-index-info {
+    .display-5 {
+      border-bottom: 2px solid black;
+    }
+    .nifty-index-status {
+      border-bottom: 1px dashed gray;
+      display: flex;
+      .nifty-current {
+        margin: 15px 15px;
+        .nifty-current-price {
+          font-weight: bolder;
+          font-size: 100px;
+        }
+
+        .nifty-current-status {
+          font-weight: bold;
+          color: green;
+        }
+
+        .date-time {
+          color: gray;
+        }
+      }
+
+      .nifty-index-range {
+        padding-left: 50px;
+        display: flex;
+        flex-direction: column;
+        margin: 15px 50px;
+        justify-content: space-between;
+
+        .span {
+          text-align: left;
+        }
+
+        .dropdown {
+          .dropdown-menu {
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+.app-link {
+  padding: 10px;
+  color: rgb(2, 8, 8);
+}
+
+.navigation {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  margin-bottom: 50px;
+
+  .logo-container {
+    height: 100%;
+    width: 100px;
+    padding: 5px;
+
+    .logo {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .app-link-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    // align-items: center;
+    // justify-content: flex-end;
+    // text-align:center;
+
+    
+    
+
+    .app-link {
+      
+      cursor: pointer;
+    }
+  }
+}

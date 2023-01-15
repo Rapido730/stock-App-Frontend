@@ -1,0 +1,12 @@
+.nifty-overview-container{
+    display: flex;
+    justify-content: space-between;
+    .nifty-overview-items{
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        align-items: baseline;
+        padding: 2px 10px;
+    }
+}

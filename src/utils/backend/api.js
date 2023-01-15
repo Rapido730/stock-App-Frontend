@@ -29,9 +29,9 @@ export const createTask = async (token, description) => {
   return res;
 };
 
-export const getMethod = async (link, config = {}) => {
+export const getMethod = async (link, data={},config = {}) => {
   try {
-    const res = await axios.get(backend_url + link, config);
+    const res = await axios.get(backend_url + link, data,config);
     return res;
   } catch (error) {
     return error;

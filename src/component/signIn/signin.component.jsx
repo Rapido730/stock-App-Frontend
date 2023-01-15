@@ -15,12 +15,15 @@ const SignIn = () => {
   const [Response, SetResponse] = useState("");
 
   const UserLogin = async (data) => {
-    const res = await postMethod(data, "/users/login");
+    const res = await postMethod(data, "/user/signin");
 
     if (res) {
       const user = res.data;
+      // console.log(user)
       // dispatch(SetCurrentUser(user));
-      return `Name : ${res.data.user.name} \n Age : ${res.data.user.age}`;
+      SetEmail("");
+      SetPassword("")
+      return `Name : ${user.name} \n Age : ${user.age}`;
     }
     return "There is some error!";
   };
@@ -35,10 +38,14 @@ const SignIn = () => {
   };
   const handleSubmit = (event) => {
     SetResponse("loading...");
-    // event.preventDefault();
-    // UserLogin({ email: Email, password: Password }).then((resposne) => {
-    //   SetResponse("Signed In!");
-    // });
+    event.preventDefault();
+    UserLogin({ email: Email, password: Password }).then((resposne) => {
+      SetResponse("Signed In!");
+
+      setTimeout(()=>{
+        SetResponse("");
+      }, 2000);
+    });
   };
   return (
     <div className="sign-in-container">

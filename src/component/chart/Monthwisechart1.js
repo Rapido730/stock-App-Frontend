@@ -48,11 +48,19 @@ const Monthwisechart1 = ({ Data }) => {
   };
   var oneThirdYear = false;
 
+  const [DataLength, SetDataLength] = useState(0);
+
   useEffect(() => {
-    if (Data.length >= 400) {
+    if (DataLength >= 400) {
       oneThirdYear = true;
     }
-    BarUserHandler();
+
+    if (Data !== undefined) {
+      console.log("called3");
+      console.log(Data.length);
+      SetDataLength(Data.length);
+      BarUserHandler();
+    }
   }, [Data]);
 
   const [show_label_access, Set_show_label] = useState([]);
@@ -93,8 +101,8 @@ const Monthwisechart1 = ({ Data }) => {
             CurrentShowLabel = [...CurrentShowLabel, NewLabel[i]];
           }
         }
-        console.log(CurrentShowLabel);
-        console.log(NewLabel);
+        // console.log(CurrentShowLabel);
+        // console.log(NewLabel);
         Set_show_label(CurrentShowLabel);
       } else {
         Set_show_label(NewLabel);
@@ -159,7 +167,7 @@ const Monthwisechart1 = ({ Data }) => {
     scales: {
       y: {
         display: true,
-        min: Data.length > 400 ? 600 : 2000,
+        min: Data && Data.length > 400 ? 600 : 2000,
         //   max :
         //   stepSize:
         position: "right",

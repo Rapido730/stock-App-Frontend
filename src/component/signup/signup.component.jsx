@@ -5,7 +5,7 @@ import "./signup.style.scss";
 import { postMethod } from "../../utils/backend/api";
 
 const UserReg = async (data) => {
-  const res = await postMethod(data, "/users");
+  const res = await postMethod(data, "/user/register");
   if (res) {
     return "account created";
   }
@@ -37,11 +37,18 @@ const SignUp = () => {
   };
   const handleSubmit = (event) => {
     SetResponse("registering");
-    // event.preventDefault();
-    // UserReg({name :Name,age:Age, email :Email, password:Password})
-    // .then((resposne)=> {
-    //   SetResponse(resposne)
-    // })
+    event.preventDefault();
+    UserReg({name :Name,age:Age, email :Email, password:Password})
+    .then((resposne)=> {
+      SetResponse(resposne)
+      SetAge("");
+      SetEmail("");
+      SetName("");
+      SetPassword("");
+      setTimeout(() => {
+        SetResponse("");
+      }, 2000);
+    })
   };
   return (
     <div className="sign-up-container">

@@ -1,20 +1,64 @@
+import { useEffect, useState } from "react";
+
 const { NavLink } = require("react-router-dom");
 
-export const NiftyStatus = () => {
+const InitialNiftyValues = {
+  TodaysData:{Open:0,Low:0,High:0,Close:0},
+  CurrentNiftyIndex: 0,
+  CurrentNiftyProfit: 0,
+  CurrentNiftyProfitPercentage: 0,
+  YearHigh: 0,
+  YearLow: 10000,
+  DayHigh: 0,
+  DayLow: 0,
+};
+
+export const NiftyStatus = ({ NiftyData }) => {
+  const [CurrentNiftyValues, SetCurrentNiftyValues] = useState(InitialNiftyValues);
+
+  useEffect(() => {
+    const GetIndexData = () => {
+      let data = NiftyData.BSEdata[0];
+      let YearHigh = 0;
+      let YearLow = 100000;
+      NiftyData.BSEdata.filter((data) => {
+        var d1 = new Date(data.Date);
+        var d2 = new Date("2023-01-12");
+        var diff = d2.getTime() - d1.getTime() + 1;
+        var daydiff = (diff / (24 * 60 * 60 * 1000)).toFixed(0);
+        return daydiff < 365;
+      }).forEach((NiftyData) => {
+        data.Date < NiftyData.Date ? (data = NiftyData) : (data = data);
+
+        YearHigh = Math.max(YearHigh, NiftyData.High);
+        YearLow = Math.min(YearLow, NiftyData.Low);
+      });
+      
+      return {data,YearHigh,YearLow};
+    };
+    if (Object.keys(NiftyData).length !== 0) {
+      const { data, YearHigh, YearLow } = GetIndexData();
+      const Percentage = ((data.Close - data.Open)/data.Open)*100;
+      // console.log(data);
+      SetCurrentNiftyValues({...CurrentNiftyValues,TodaysData:data,CurrentNiftyIndex:data.Close,CurrentNiftyProfit:(data.Close-data.Open),YearHigh,YearLow,DayHigh:data.High,DayLow:data.Low,CurrentNiftyProfitPercentage:Percentage})
+      // SetCurrentNiftyIndex(data.Close);
+      // SetCurrentNiftyProfit(data.Close - data.Open);
+    }
+  }, [NiftyData]);
+
   return (
     <div>
-      
       <div class="container">
         <ul class="nav nav-tabs ">
           <li class="active ml-3">
-            <a href="#">NSE</a>
+            <a href="/">NSE</a>
           </li>
 
           <li class="ml-3">
-            <a href="#">Future</a>
+            <a href="/">Future</a>
           </li>
           <li class="ml-3">
-            <a href="#">Options</a>
+            <a href="/">Options</a>
           </li>
         </ul>
       </div>
@@ -23,25 +67,33 @@ export const NiftyStatus = () => {
         <h1>NIFTY 50</h1>
         <div class="row">
           <div class="col-lg-4 col-md-4 col-12  my-4">
-            <h1>17972.15</h1>
+            <h1>{CurrentNiftyValues.CurrentNiftyIndex.toFixed(2)}</h1>
 
             <h3 class="text-success">
               {" "}
-              <i class="fa-solid fa-arrow-up"></i>113.95%
+              <i class="fa-solid fa-arrow-up"></i>
+              {Math.abs(CurrentNiftyValues.CurrentNiftyProfit.toFixed(2))} (
+              {Math.abs(
+                CurrentNiftyValues.CurrentNiftyProfitPercentage.toFixed(2)
+              )}
+              %)
             </h3>
           </div>
 
           <div class="col-lg-4 col-md-4 col-12  my-4">
             <h3>DAY RANGE</h3>
-          </div>
-          <div class="col-lg-4 col-md-4 col-12  my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
-            quidem culpa voluptas. Possimus, esse nam sequi consectetur ex
-            praesentium laudantium quia, explicabo, a error eius. Reprehenderit
-            eum excepturi nam nesciunt. Aliquid modi, impedit tempora odit est,
-            non sapiente accusamus soluta eveniet consequuntur molestias dolorem
-            tempore aspernatur magnam, vero alias. Quidem officia quo ipsam
-            pariatur, culpa adipisci. Enim fuga natus sequi!
+
+            <h2>
+              {" "}
+              YearHigh = {CurrentNiftyValues.YearHigh.toFixed(2)} YearLow ={" "}
+              {CurrentNiftyValues.YearLow.toFixed(2)}
+            </h2>
+
+            <h2>
+              {" "}
+              DayHigh = {CurrentNiftyValues.DayHigh.toFixed(2)} DayLow ={" "}
+              {CurrentNiftyValues.DayLow.toFixed(2)}
+            </h2>
           </div>
         </div>
       </div>
@@ -49,28 +101,28 @@ export const NiftyStatus = () => {
       <div class="container">
         <ul class="nav nav-tabs ">
           <li class="active ml-3">
-            <a href="#">Home</a>
+            <a href="/">OVERVIEW</a>
           </li>
 
           <li class="ml-3">
-            <a href="#">Menu 2</a>
+            <a href="/">CHART</a>
           </li>
           <li class="ml-3">
-            <a href="#">Menu 3</a>
-          </li>
-
-          <li class="ml-3">
-            <a href="#">Menu 2</a>
-          </li>
-          <li class="ml-3">
-            <a href="#">Menu 3</a>
+            <a href="/">TECHNICALS</a>
           </li>
 
           <li class="ml-3">
-            <a href="#">Menu 2</a>
+            <a href="/">NEWS</a>
           </li>
           <li class="ml-3">
-            <a href="#">Menu 3</a>
+            <a href="/">CONTRIBUTION</a>
+          </li>
+
+          <li class="ml-3">
+            <a href="/">COMPONENTS</a>
+          </li>
+          <li class="ml-3">
+            <a href="/">FORUM</a>
           </li>
         </ul>
       </div>
@@ -78,23 +130,33 @@ export const NiftyStatus = () => {
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-12  my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
-            quidem culpa voluptas. Possimus, esse nam sequi consectetur ex
-            praesentium laudantium quia, explicabo, a error eius. Reprehenderit
-            eum excepturi nam nesciunt. Aliquid modi, impedit tempora odit est,
-            non sapiente accusamus soluta eveniet consequuntur molestias dolorem
-            tempore aspernatur magnam, vero alias. Quidem officia quo ipsam
-            pariatur, culpa adipisci. Enim fuga natus sequi!
+            <h4>
+              {" "}
+              open {"     "} {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              open {"     "} {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              Day High {"     "} {CurrentNiftyValues.TodaysData.High.toFixed(2)}
+            </h4>
           </div>
 
           <div class="col-lg-6 col-md-6 col-12  my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
-            quidem culpa voluptas. Possimus, esse nam sequi consectetur ex
-            praesentium laudantium quia, explicabo, a error eius. Reprehenderit
-            eum excepturi nam nesciunt. Aliquid modi, impedit tempora odit est,
-            non sapiente accusamus soluta eveniet consequuntur molestias dolorem
-            tempore aspernatur magnam, vero alias. Quidem officia quo ipsam
-            pariatur, culpa adipisci. Enim fuga natus sequi!
+            <h4>
+              {" "}
+              DayLow {"     "} {CurrentNiftyValues.TodaysData.Low.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              52 Week High {"     "} {CurrentNiftyValues.YearHigh.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              52 Week Low {"     "} {CurrentNiftyValues.YearLow.toFixed(2)}
+            </h4>
           </div>
         </div>
       </div>

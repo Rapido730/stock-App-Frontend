@@ -80,12 +80,10 @@ export const NiftyStatus = () => {
           </li>
         </ul>
       </div>
-
-      <div class="container">
-        <hr class="top-line"></hr>
+      <div class="container ">
         <h1>NIFTY 50</h1>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-12  my-4">
+        <div class="row ">
+          <div class="col-lg-6 col-md-6 col-12  my-4  ">
             <h1>{CurrentNiftyValues.CurrentNiftyIndex.toFixed(2)}</h1>
 
             <h3 class="text-success">
@@ -100,7 +98,7 @@ export const NiftyStatus = () => {
             <p>As on {Date()}</p>
           </div>
 
-          <div class="col-lg-4 col-md-4 col-12  ">
+          <div class="col-lg-6 col-md-6 col-12  my-4 ">
             <h3>DAY RANGE</h3>
             <Range
               low={CurrentNiftyValues.DayLow.toFixed(2)}
@@ -148,7 +146,7 @@ export const NiftyStatus = () => {
       </div>
 
       <div class="container">
-        <ul class="nav nav-tabs ">
+        <ul class="nav nav-tabs py-2">
           <li class="active ml-3 ml-3 nav-li-3">
             <a href="/">OVERVIEW</a>
           </li>

@@ -191,12 +191,11 @@ const Monthwisechart1 = ({ Data }) => {
   };
 
   return (
-    <div>
-      <h1>Charts in React</h1>
-      <div className="advancechart">
-        <Chart type="line" data={BarUserData()} options={options}></Chart>
+    
+      <div className="advancechart" >
+        <Chart className="chart" type="line" data={BarUserData()} options={options}></Chart>
       </div>
-    </div>
+  
   );
 };
 

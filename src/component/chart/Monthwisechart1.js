@@ -49,6 +49,7 @@ const Monthwisechart1 = ({ Data }) => {
   var oneThirdYear = false;
 
   const [DataLength, SetDataLength] = useState(0);
+  const [minLimit, SetminLimit] = useState(100000);
 
   useEffect(() => {
     if (DataLength >= 400) {
@@ -56,8 +57,13 @@ const Monthwisechart1 = ({ Data }) => {
     }
 
     if (Data !== undefined) {
-      console.log("called3");
-      console.log(Data.length);
+      // console.log("called3");
+      // console.log(Data.length);
+      const limit = Data.reduce((mini, currData) => {
+        return Math.min(currData.Close, mini);
+      },100000);
+      SetminLimit(limit);
+      console.log(limit)
       SetDataLength(Data.length);
       BarUserHandler();
     }
@@ -117,7 +123,7 @@ const Monthwisechart1 = ({ Data }) => {
           borderColor: "#0000FF",
           data: Data.map(
             (y) =>
-              Math.abs(y.Close - y.Open) + (Data.length > 400 ? 600 : 2000) + 50
+              (Math.abs(y.Close - y.Open) + (minLimit - minLimit/3))
           ),
           backgroundColor: Data.map((val) => {
             if (val.Open > val.Close) {
@@ -167,7 +173,7 @@ const Monthwisechart1 = ({ Data }) => {
     scales: {
       y: {
         display: true,
-        min: Data && Data.length > 400 ? 600 : 2000,
+        min: (minLimit - minLimit/2),
         //   max :
         //   stepSize:
         position: "right",
@@ -188,6 +194,7 @@ const Monthwisechart1 = ({ Data }) => {
       <div className="advancechart">
         <Chart type="line" data={BaruserData} options={options}></Chart>
       </div>
+      <h2>{minLimit}</h2>
     </div>
   );
 };

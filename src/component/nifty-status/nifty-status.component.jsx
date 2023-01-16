@@ -130,17 +130,32 @@ export const NiftyStatus = ({ NiftyData }) => {
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-12  my-4">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-3  my-4 ml-5">
+                <h4> open {"                "} </h4>
+                <h4> open {"                "} </h4>
+                <h4> Day High {"             "} </h4>
+              </div>
+              <div class="col-lg-3 col-md-3 col-3  my-4 ml-5">
+                <h4> {CurrentNiftyValues.TodaysData.Open.toFixed(2)} </h4>
+                <h4> {CurrentNiftyValues.TodaysData.Open.toFixed(2)}</h4>
+                <h4> {CurrentNiftyValues.TodaysData.High.toFixed(2)} </h4>
+              </div>
+            </div>
             <h4>
               {" "}
-              open {"     "} {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
+              open {"                "}{" "}
+              {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
             </h4>
             <h4>
               {" "}
-              open {"     "} {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
+              open {"                "}{" "}
+              {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
             </h4>
             <h4>
               {" "}
-              Day High {"     "} {CurrentNiftyValues.TodaysData.High.toFixed(2)}
+              Day High {"             "}{" "}
+              {CurrentNiftyValues.TodaysData.High.toFixed(2)}
             </h4>
           </div>
 

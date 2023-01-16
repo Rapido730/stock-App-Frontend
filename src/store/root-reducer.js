@@ -1,11 +1,10 @@
 import { combineReducers } from "redux";
 
 import { UserReducer } from "./user/user.reducer";
-import { categoryReducer } from "./category/category.reducer";
-import { cartReducer } from "./cart/cart.reducer";
-
+import { NiftyIndexReducer } from "./Niftydata/niftydata.reducer";
+import { CompanyReducer } from "./companydata/companydata.reducer";
 export const rootReducer = combineReducers({
   user: UserReducer,
-  category: categoryReducer,
-  cart: cartReducer,
+  NiftyData: NiftyIndexReducer,
+  CompanyStockData: CompanyReducer,
 });

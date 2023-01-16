@@ -17,6 +17,7 @@ import {
 } from "chart.js";
 
 import { Chart } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 
 ChartJS.register(
   LinearScale,
@@ -31,7 +32,16 @@ ChartJS.register(
   BarController
 );
 
+const INITIAL_DATA = {
+  BaruserData: { label: [], datasets: [] },
+  DataLength:0,
+  minLimit:10000
+};
 const Monthwisechart1 = ({ Data }) => {
+
+  const CompanyName = useSelector(
+    (state) => state.CompanyStockData.CurrentCompany
+  );
   const MonthLabels = {
     1: "Jan",
     2: "Feb",
@@ -46,28 +56,38 @@ const Monthwisechart1 = ({ Data }) => {
     11: "Nov",
     12: "Dec",
   };
-  var oneThirdYear = false;
 
-  const [DataLength, SetDataLength] = useState(0);
-  const [minLimit, SetminLimit] = useState(100000);
+  console.log(Data.length)
+  var oneThirdYear = false;
+  const [ChartData,SetData] = useState(INITIAL_DATA);
+  const {BaruserData,minLimit,DataLength} = ChartData;
 
   useEffect(() => {
     if (DataLength >= 400) {
       oneThirdYear = true;
     }
 
-    if (Data !== undefined) {
-      // console.log("called3");
-      // console.log(Data.length);
+    const handler = async() => {
       const limit = Data.reduce((mini, currData) => {
         return Math.min(currData.Close, mini);
       },100000);
-      SetminLimit(limit);
       console.log(limit)
-      SetDataLength(Data.length);
-      BarUserHandler();
+      SetData({...ChartData,DataLength:Data.length,minLimit:limit});
+      await BarUserHandler();
     }
-  }, [Data]);
+
+    if (Data.length > 0) {
+      // console.log("called3");
+      // console.log(Data.length);
+      handler();
+      
+    }
+  }, [Data,CompanyName]);
+
+
+  // useEffect(()=> {
+    
+  // },[CompanyName,Data])
 
   const [show_label_access, Set_show_label] = useState([]);
   const BarUserHandler = async () => {
@@ -114,6 +134,7 @@ const Monthwisechart1 = ({ Data }) => {
         Set_show_label(NewLabel);
       }
     }
+
     const NewBarUserData = {
       labels: DateLabel,
       datasets: [
@@ -150,12 +171,12 @@ const Monthwisechart1 = ({ Data }) => {
       ],
     };
 
-    setBaruserData(NewBarUserData);
+    SetData({ ...ChartData,BaruserData: NewBarUserData,});
   };
 
   const color = ["#FF0000", "#006600"];
 
-  const [BaruserData, setBaruserData] = useState({ label: [], datasets: [] });
+
 
   const options = {
     plugins: {

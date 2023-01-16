@@ -1,18 +1,21 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Monthwisechart1 from "../chart/Monthwisechart1";
 
-export const CompanyChart = ({data}) => {
-
-    
-  const [ChartData, SetChartData] = useState(data);
+export const CompanyChart = () => {
+  const CompanyName = useSelector(
+    (state) => state.CompanyStockData.CurrentCompany
+  );
+  const CompanyChartData = useSelector(
+    (state) => state.CompanyStockData[CompanyName]
+  );
+  const [ChartData, SetChartData] = useState(CompanyChartData);
   const [CurrentChartData, SetCurrentChartData] = useState(ChartData);
 
-  useEffect(()=>{
-    SetChartData(data)
-    SetCurrentChartData(data);
-    console.log("called2")
-  },[data])
-
+  useEffect(() => {
+    SetChartData(CompanyChartData);
+    SetCurrentChartData(CompanyChartData)
+  }, [CompanyName]);
 
   const DayWiseDataChange1 = () => {
     const newData = ChartData.filter((data) => {
@@ -106,4 +109,4 @@ export const CompanyChart = ({data}) => {
       <Monthwisechart1 Data={CurrentChartData} />
     </div>
   );
-}
+};

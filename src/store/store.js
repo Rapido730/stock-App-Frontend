@@ -10,10 +10,10 @@ import { rootReducer } from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["user"],
+  blacklist: ["NiftyData", "CompanyStockData"],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
   Boolean
@@ -27,10 +27,6 @@ const composeEnhancers =
 
 const composedEnhancers = composeEnhancers(applyMiddleware(...middleWares));
 
-export const store = createStore(
-  persistedReducer,
-  undefined,
-  composedEnhancers
-);
+export const store = createStore(rootReducer, undefined, composedEnhancers);
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);

@@ -12,9 +12,9 @@ export const NiftyIndex = () => {
 
         <div className="nifty-index-status">
           <div className="nifty-current">
-            <h1 class="display-3">17,972.15</h1>
-            <h1 class="display-4">113.95(0.64%)</h1>
-            
+            <h1 className="display-3">17,972.15</h1>
+            <h1 className="display-4">113.95(0.64%)</h1>
+
             <span className="date-time">As on {date}</span>
           </div>
           <div className="nifty-index-range">
@@ -29,11 +29,11 @@ export const NiftyIndex = () => {
               >
                 {DropdownItem}
               </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="/">
+              <div className="dropdown-menu">
+                <a className="dropdown-item" href="/">
                   YTD
                 </a>
-                <a class="dropdown-item" href="/">
+                <a className="dropdown-item" href="/">
                   MTD
                 </a>
               </div>

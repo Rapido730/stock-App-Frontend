@@ -3,9 +3,13 @@ import { NiftyStatus } from "../../component/nifty-status/nifty-status.component
 import { AdvanceChart } from "../../component/advancechart/advance-chart.component";
 import { useEffect, useState } from "react";
 import { getMethod } from "../../utils/backend/api";
+import { useDispatch } from "react-redux";
+
+import { Set_Company_data } from "../../store/companydata/companydata.action";
+import { Set_Nifty_Index_Data } from "../../store/Niftydata/niftydata.action";
+
 export const Home = () => {
-  const [NiftyIndexData, SetNiftyIndexData] = useState({});
-  const [CompanyStockData,SetCompanyStockData] = useState({});
+  const dispatch = useDispatch();
 
   const getNiftyIndexData = async () => {
     const NSEdata = await getMethod("/sensexApi/nse");
@@ -31,22 +35,20 @@ export const Home = () => {
 
   useEffect(() => {
     const getAllData = async () => {
-      SetNiftyIndexData(await getNiftyIndexData());
-      SetCompanyStockData(await getCompanyStockData());
+      const NiftyIndexData = await getNiftyIndexData();
+      const companyStockData = await getCompanyStockData();
+      console.log("called")
+      dispatch(Set_Company_data(companyStockData));
+      dispatch(Set_Nifty_Index_Data(NiftyIndexData));
     };
 
     getAllData();
   }, []);
 
-  useEffect(()=>{
-
-  },[NiftyIndexData,CompanyStockData])
-
-  console.log(NiftyIndexData)
   return (
     <div className="home-container">
-      <NiftyStatus NiftyData={NiftyIndexData}/>
-      <AdvanceChart CompanyStockData={CompanyStockData} />
+      <NiftyStatus />
+      <AdvanceChart />
     </div>
   );
 };

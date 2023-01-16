@@ -1,26 +1,14 @@
 import { useEffect, useState } from "react";
-import { Data } from "../../data.js";
+import { useDispatch, useSelector } from "react-redux";
 import { CompanyChart } from "../companyChart/company-chart.component";
-
-export const AdvanceChart = ({ CompanyStockData }) => {
-  const [CompanyChartData, SetCompanyChartData] = useState(CompanyStockData);
-  const [ChartData, SetChartData] = useState([]);
+import { Set_Current_Company_Name } from "../../store/companydata/companydata.action";
+export const AdvanceChart = () => {
+  const dispatch = useDispatch();
   const [CompanyName, SetCompanyName] = useState("relianceData");
 
-  useEffect(() => {
-    SetCompanyChartData(CompanyStockData);
-  }, []);
-
-  useEffect(() => {
-    const ChartDataChangeHandler = () => {
-      SetChartData(CompanyStockData[CompanyName]);
-      console.log("called");
-      // console.log(CompanyStockData["ashokleyData"])
-      // console.log(ChartData)
-    };
-
-    ChartDataChangeHandler();
-  }, [CompanyName,CompanyChartData]);
+  useEffect(()=> {
+    dispatch(Set_Current_Company_Name(CompanyName));
+  },[CompanyName])
 
   const CompanyChangeToTata = () => {
     SetCompanyName("tatasteelData");
@@ -60,7 +48,7 @@ export const AdvanceChart = ({ CompanyStockData }) => {
         <button onClick={CompanyChangeToAshokley}>ashokley</button>
       </div>
       <h2>{CompanyName}</h2>
-      <CompanyChart data={ChartData} />
+      <CompanyChart />
     </div>
   );
 };

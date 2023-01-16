@@ -1,11 +1,10 @@
 .advancechart{
     margin-left: 5%;
     margin-right:15%;
-    width: 100%;
+    width: 95%;
     margin-top: 30px;
     margin-bottom : 30px;
-    min-width: 900px;
-    
+
     @media screen and (max-width: 600px) {
         min-width: 80%;
     

@@ -1,25 +1,35 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CompanyChart } from "../companyChart/company-chart.component";
+import BarLogo from "../../assests/bar-logo.svg";
+// import Area from "../../assests";
+import Candle from "../../assests/candle.svg";
+import Box from "../../assests/box.svg";
+import Setting from "../../assests/setting.svg";
+import Cloud from "../../assests/cloud.svg";
+import Zoom from "../../assests/zoom.svg";
+import Camera from "../../assests/camera.svg";
+import LinkDirector from "../../assests/link.svg";
+
+import "./advance-chart.style.scss";
 import { Set_Current_Company_Name } from "../../store/companydata/companydata.action";
 export const AdvanceChart = () => {
   const dispatch = useDispatch();
   const [CompanyName, SetCompanyName] = useState("relianceData");
 
   const getCompanyName = () => {
-
     if (CompanyName === "ashokleyData") {
-      return "Ashok Leyland"
+      return "Ashok Leyland";
     } else if (CompanyName === "eichermotData") {
-      return "Eicher Motors"
+      return "Eicher Motors";
     } else if (CompanyName === "ciplaData") {
-      return "Cipla"
+      return "Cipla";
     } else if (CompanyName === "relianceData") {
-      return "Reliance"
+      return "Reliance";
     } else if (CompanyName === "tatasteelData") {
-      return "Tata Steel"
+      return "Tata Steel";
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(Set_Current_Company_Name(CompanyName));
@@ -48,19 +58,31 @@ export const AdvanceChart = () => {
   return (
     <div className="chart container border border-dark">
       <div class="container">
-        <h1 class="font-weight-bold text-capitalize pt-5">Advanced Chart</h1>
+        <div className="row">
+          <div className="col-lg-1 col-md-1 col-1 my-4 ">
+            <img className="resize mt-5" src={BarLogo}></img>
+          </div>
+          <div className="col-lg-5 col-md-5 col-5  my-4 ">
+            <h1 class="font-weight-bold text-capitalize pt-5">
+              {" "}
+              Advanced Chart
+            </h1>
+          </div>
+        </div>
         <hr class="w-100 mx-auto pt-2" />
         <div class="container">
-          <h5>{getCompanyName()}   NSE</h5>
+          <h4>{getCompanyName()} NSE</h4>
           <div class="row">
-            <ul class="nav nav-tabs ">
+            <ul class="nav ">
               <li class="active ml-3 font-weight-bold dropdown">
                 <span
                   class="dropdown-toggle text-decoration-none"
                   data-toggle="dropdown"
                 >
-                  {getCompanyName()}
-                  <span class="caret"></span>
+                  <h3 className="font-weight-bold">
+                    {getCompanyName()}
+                    <span class="caret"></span>
+                  </h3>
                 </span>
 
                 <ul class="dropdown-menu">
@@ -86,62 +108,42 @@ export const AdvanceChart = () => {
 
               <div class="row ml-2">
                 <li class="ml-2">
-                  <span class="text-decoration-none">1h</span>
+                  <span class="text-decoration-none font-weight-bold ">
+                    <h3>15m</h3>
+                  </span>
                 </li>
                 <li class="ml-2">
-                  <span>7h</span>
+                  <span class="text-decoration-none font-weight-bold ">
+                    <h3>30m</h3>
+                  </span>
                 </li>
 
                 <li class="ml-2">
-                  <span>12h</span>
+                  <span class="text-decoration-none font-weight-bold ">
+                    <h3>1h</h3>
+                  </span>
                 </li>
                 <li class="ml-2">
-                  <span>20h</span>
-                </li>
-              </div>
-
-              <div class="row ml-3">
-                <li class="ml-2">
-                  <span onClick={CompanyChangeToTata}>TATA</span>
-                </li>
-                <li class="ml-2">
-                  <a href="#">Menu 3</a>
-                </li>
-
-                <li class="ml-2">
-                  <a href="#">Menu 2</a>
-                </li>
-
-                <li class="dropdown ml-2">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Menu 1 <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <span onClick={CompanyChangeToTata}>TATA</span>
-                    <li>
-                      <a href="#">Submenu 1-2</a>
-                    </li>
-                    <li>
-                      <a href="#">Submenu 1-3</a>
-                    </li>
-                  </ul>
+                  <span class="text-decoration-none font-weight-bold ">
+                    <h3>12h</h3>
+                  </span>
                 </li>
               </div>
             </ul>
 
-            <div class="ml-5">
-              <button type="button" class="btn btn-outline-dark mx-2 mb-2">
-                SQL
-              </button>
-              <button type="button" class="btn btn-outline-dark mx-2 mb-2">
-                SQL
-              </button>
-              <button type="button" class="btn btn-outline-dark mx-2 mb-2">
-                SQL
-              </button>
-              <button type="button" class="btn btn-outline-dark mx-2 mb-2">
-                SQL
-              </button>
+            <div class="ml-auto">
+              <div className="row ">
+                <img className="resize ml-3" src={BarLogo}></img>
+
+                <img className="resize ml-3" src={Candle}></img>
+
+                <img className="resize ml-3" src={Box}></img>
+                <img className="resize ml-3" src={Cloud}></img>
+                <img className="resize ml-3" src={Setting}></img>
+                <img className="resize ml-3" src={Zoom}></img>
+                <img className="resize ml-3" src={Camera}></img>
+                <img className="resize ml-3" src={LinkDirector}></img>
+              </div>
             </div>
           </div>
         </div>

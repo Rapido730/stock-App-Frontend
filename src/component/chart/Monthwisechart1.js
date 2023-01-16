@@ -56,7 +56,7 @@ const Monthwisechart1 = ({ Data }) => {
       return Math.min(currData.Close, mini);
     }, 100000);
 
-  console.log(Data.length);
+  //console.log(Data.length);
   var oneThirdYear = false;
 
   useEffect(() => {
@@ -145,12 +145,7 @@ const Monthwisechart1 = ({ Data }) => {
   };
 
   const BarUserData = () => {
-    console.log(
-      Data.reduce((datelabel, data) => {
-        datelabel = [...datelabel, data];
-        return datelabel;
-      }, [])
-    );
+    
     return {
       labels: Data.reduce((datelabel, data) => {
         datelabel = [...datelabel, data.Date];

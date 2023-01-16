@@ -1,17 +1,30 @@
-// import { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./navigation.style.scss";
-// import { ReactComponent as AppLogo } from "../../assests/logo.svg";
-// import { useDispatch, useSelector } from "react-redux";
-// import { SetCurrentUser } from "../../store/user/user.action";
-// import { Fetch_Task_List } from "../../store/tasks/tasks.action";
+
+import { useDispatch, useSelector } from "react-redux";
+import { SetCurrentUser } from "../../store/user/user.action";
+import Dolo from "../../assests/DOLO65.png";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  const CurrentUserdata = useSelector((state) => state.user.CurrentUser);
+  // const token = useSelector((state) => state.user.CurrentUser);
+  let CurrentUser = null;
+  if (CurrentUserdata != null) {
+    const token = CurrentUserdata.tokens[0];
+    CurrentUser = CurrentUserdata;
+  }
 
+  const signOutHandler = () => {
+    dispatch(SetCurrentUser(null));
+  };
 
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <img class="logo-resize" src={Dolo} alt="DOLO650" />
+        </a>
         <button
           className="navbar-toggler"
           type="button"
@@ -25,46 +38,33 @@ const Navigation = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
+          <ul className="navbar-nav ml-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="/">
-                Home <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item active">
-              <a className="nav-link" href="/signin">
-                signin <span className="sr-only">(current)</span>
-              </a>
+              {CurrentUser ? (
+                <div className="my-auto row">
+                  <Link className="nav-link">
+                    {CurrentUser.name}{" "}
+                    <span className="sr-only">(current)</span>
+                  </Link>
+                  <Link className="nav-link" to="/signin">
+                    <span className="mt-5" onClick={signOutHandler}>
+                      Sign Out
+                    </span>
+                  </Link>
+                </div>
+              ) : (
+                <div className="navbar-nav ml-auto">
+                  <Link className="app-link" to="/signin">
+                    Sign In
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
         </div>
       </nav>
       <Outlet />
     </div>
-    // <Fragment>
-    //   <div className="navigation">
-    //     <div className="logo-container">
-    //       {/*<AppLogo className="logo" />*/}
-    //       <Link className="app-link" to="/">
-    //       <span>logo</span>
-    //       </Link>
-    //     </div>
-    //     <div className="app-link-conatiner">
-    //       {CurrentUser ? (
-    //         <Link className="app-link" to="/signin">
-    //           <span onClick={signOutHandler}>Sign Out</span>
-    //         </Link>
-    //       ) : (
-    //         <Link className="app-link" to="/signin">
-    //           Sign In
-    //         </Link>
-    //       )}
-    //     </div>
-    //   </div>
-    // <div>
-    //
-    // </div>
-    // </Fragment>
   );
 };
 

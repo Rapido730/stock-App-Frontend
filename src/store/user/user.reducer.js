@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 export const UserReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
-  //console.log("reducer");
+  ////console.log("reducer");
   switch (type) {
     case User_Action_Types.Set_current_user:
       return { ...state, CurrentUser: payload };

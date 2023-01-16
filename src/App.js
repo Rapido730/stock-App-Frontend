@@ -3,7 +3,9 @@ import Navigation from "./routes/navigation/navigation.component";
 import { Auth } from "./routes/authentication/authentication.component";
 import { Home } from "./routes/home/home.component";
 
+
 const App = () => {
+
   return (
     <div className="app-container">
       <Routes>

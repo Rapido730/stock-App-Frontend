@@ -1,7 +1,7 @@
 import FormInput from "../form-input/form-input.component";
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { SetCurrentUser } from "../../store/user/user.action";
+import { useDispatch } from "react-redux";
+import { SetCurrentUser } from "../../store/user/user.action";
 
 import { Button } from "../Button/button.component";
 
@@ -9,7 +9,7 @@ import "./signIn.style.scss";
 import { postMethod } from "../../utils/backend/api";
 
 const SignIn = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [Email, SetEmail] = useState("");
   const [Password, SetPassword] = useState("");
   const [Response, SetResponse] = useState("");
@@ -19,10 +19,10 @@ const SignIn = () => {
 
     if (res) {
       const user = res.data;
-      // console.log(user)
-      // dispatch(SetCurrentUser(user));
+      // //console.log(user)
+      dispatch(SetCurrentUser(user));
       SetEmail("");
-      SetPassword("")
+      SetPassword("");
       return `Name : ${user.name} \n Age : ${user.age}`;
     }
     return "There is some error!";
@@ -42,7 +42,7 @@ const SignIn = () => {
     UserLogin({ email: Email, password: Password }).then((resposne) => {
       SetResponse("Signed In!");
 
-      setTimeout(()=>{
+      setTimeout(() => {
         SetResponse("");
       }, 2000);
     });
@@ -68,9 +68,7 @@ const SignIn = () => {
           value={Password}
         />
 
-        <Button  type="submit">
-          Sign In
-        </Button>
+        <Button type="submit">Sign In</Button>
       </form>
       <p>{Response}</p>
     </div>

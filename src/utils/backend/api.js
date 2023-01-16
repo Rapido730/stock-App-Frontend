@@ -15,10 +15,10 @@ export const createTask = async (token, description) => {
     description: description,
     completed: false,
   };
-  // console.log(CurrentUserdata);
+  // //console.log(CurrentUserdata);
   const Authorization = "Bearer " + token;
-  // console.log(Authorization);
-  // console.log("hello");
+  // //console.log(Authorization);
+  // //console.log("hello");
 
   const config = {
     headers: {
@@ -29,9 +29,9 @@ export const createTask = async (token, description) => {
   return res;
 };
 
-export const getMethod = async (link, data={},config = {}) => {
+export const getMethod = async (link, data = {}, config = {}) => {
   try {
-    const res = await axios.get(backend_url + link, data,config);
+    const res = await axios.get(backend_url + link, data, config);
     return res;
   } catch (error) {
     return error;
@@ -47,8 +47,8 @@ export const patchMethod = async (data, link, config = {}) => {
   }
 };
 
-export const updateTask = async (token,task) => {
-  const {description,completed} = task;
+export const updateTask = async (token, task) => {
+  const { description, completed } = task;
   const data = {
     description: description,
     completed: completed,
@@ -67,7 +67,7 @@ export const updateTask = async (token,task) => {
 
 export const deleteMethod = async (link, config = {}) => {
   try {
-    // console.log("try");
+    // //console.log("try");
     const res = await axios.delete(backend_url + link, config);
     return res;
   } catch (error) {
@@ -75,7 +75,7 @@ export const deleteMethod = async (link, config = {}) => {
   }
 };
 
-export const deleteTaskMethod = async (AuthToken,description) => {
+export const deleteTaskMethod = async (AuthToken, description) => {
   const Authorization = "Bearer " + AuthToken;
   const config = {
     headers: {
@@ -83,7 +83,7 @@ export const deleteTaskMethod = async (AuthToken,description) => {
     },
   };
 
-  // console.log(Authorization);
+  // //console.log(Authorization);
   const res = await deleteMethod(`/tasks/delete/${description}`, config);
   return res;
 };
@@ -96,7 +96,7 @@ export const getAllTask = async (AuthToken) => {
     },
   };
 
-  // console.log(Authorization);
+  // //console.log(Authorization);
   const res = await getMethod("/tasks/readAll", config);
   return res;
 };

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import {Data} from './Data'
 import "./Monthwisechart1style.scss";
 
 import {
@@ -56,7 +55,6 @@ const Monthwisechart1 = ({ Data }) => {
       return Math.min(currData.Close, mini);
     }, 100000);
 
-  //console.log(Data.length);
   var oneThirdYear = false;
 
   useEffect(() => {
@@ -130,8 +128,6 @@ const Monthwisechart1 = ({ Data }) => {
       y: {
         display: true,
         min: getLimit() / 2,
-        //   max :
-        //   stepSize:
         position: "right",
       },
       x: {
@@ -145,7 +141,6 @@ const Monthwisechart1 = ({ Data }) => {
   };
 
   const BarUserData = () => {
-    
     return {
       labels: Data.reduce((datelabel, data) => {
         datelabel = [...datelabel, data.Date];
@@ -154,7 +149,6 @@ const Monthwisechart1 = ({ Data }) => {
       datasets: [
         {
           type: "bar",
-          // label : "Increase",
           borderColor: "#0000FF",
           data: Data.map(
             (y) => Math.abs(y.Close - y.Open) + (2 * getLimit()) / 3
@@ -169,7 +163,6 @@ const Monthwisechart1 = ({ Data }) => {
         },
         {
           type: "line",
-          // label : "Decrease",
           fill: {
             target: "origin",
             above: "#ccffff",
@@ -186,11 +179,14 @@ const Monthwisechart1 = ({ Data }) => {
   };
 
   return (
-    
-      <div className="advancechart" >
-        <Chart className="chart" type="line" data={BarUserData()} options={options}></Chart>
-      </div>
-  
+    <div className="advancechart">
+      <Chart
+        className="chart"
+        type="line"
+        data={BarUserData()}
+        options={options}
+      ></Chart>
+    </div>
   );
 };
 

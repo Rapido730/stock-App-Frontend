@@ -94,7 +94,6 @@ export const CompanyChart = () => {
     SetCurrentChartData(newData);
   };
 
-  // //console.log(CurrentChartData);
   return (
     <div className="Advance-chart">
       <Monthwisechart1 Data={CurrentChartData} />

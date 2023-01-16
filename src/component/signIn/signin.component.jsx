@@ -19,7 +19,6 @@ const SignIn = () => {
 
     if (res) {
       const user = res.data;
-      // //console.log(user)
       dispatch(SetCurrentUser(user));
       SetEmail("");
       SetPassword("");

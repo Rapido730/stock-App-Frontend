@@ -8,7 +8,6 @@ import Dolo from "../../assests/DOLO65.png";
 const Navigation = () => {
   const dispatch = useDispatch();
   const CurrentUserdata = useSelector((state) => state.user.CurrentUser);
-  // const token = useSelector((state) => state.user.CurrentUser);
   let CurrentUser = null;
   if (CurrentUserdata != null) {
     const token = CurrentUserdata.tokens[0];

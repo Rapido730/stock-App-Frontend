@@ -38,7 +38,6 @@ export const Home = () => {
       const companyStockData = await getCompanyStockData();
       dispatch(Set_Company_data(companyStockData));
       dispatch(Set_Nifty_Index_Data(NiftyIndexData));
-      //console.log(companyStockData);
     };
 
     getAllData();

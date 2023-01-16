@@ -8,7 +8,6 @@ export const Range = (props) => {
   const cal = ((current - low) * 100) / high;
   const per = Math.ceil(cal) * 2 + 20;
   let percent = per.toString();
-  //console.log(percent);
   return (
     <div className="range-toolbar">
       <div className="writing">

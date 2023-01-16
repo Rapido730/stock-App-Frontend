@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CompanyChart } from "../companyChart/company-chart.component";
 import BarLogo from "../../assests/bar-logo.svg";
-// import Area from "../../assests";
 import Candle from "../../assests/candle.svg";
 import Box from "../../assests/box.svg";
 import Setting from "../../assests/setting.svg";

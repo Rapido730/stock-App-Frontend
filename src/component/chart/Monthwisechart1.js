@@ -32,13 +32,7 @@ ChartJS.register(
   BarController
 );
 
-const INITIAL_DATA = {
-  BaruserData: { label: [], datasets: [] },
-  DataLength:0,
-  minLimit:10000
-};
 const Monthwisechart1 = ({ Data }) => {
-
   const CompanyName = useSelector(
     (state) => state.CompanyStockData.CurrentCompany
   );
@@ -57,49 +51,30 @@ const Monthwisechart1 = ({ Data }) => {
     12: "Dec",
   };
 
-  console.log(Data.length)
+  const getLimit = () =>
+    Data.reduce((mini, currData) => {
+      return Math.min(currData.Close, mini);
+    }, 100000);
+
+  console.log(Data.length);
   var oneThirdYear = false;
-  const [ChartData,SetData] = useState(INITIAL_DATA);
-  const {BaruserData,minLimit,DataLength} = ChartData;
 
   useEffect(() => {
-    if (DataLength >= 400) {
+    if (Data.length >= 400) {
       oneThirdYear = true;
     }
+  }, [Data, CompanyName]);
 
-    const handler = async() => {
-      const limit = Data.reduce((mini, currData) => {
-        return Math.min(currData.Close, mini);
-      },100000);
-      console.log(limit)
-      SetData({...ChartData,DataLength:Data.length,minLimit:limit});
-      await BarUserHandler();
-    }
-
-    if (Data.length > 0) {
-      // console.log("called3");
-      // console.log(Data.length);
-      handler();
-      
-    }
-  }, [Data,CompanyName]);
-
-
-  // useEffect(()=> {
-    
-  // },[CompanyName,Data])
-
-  const [show_label_access, Set_show_label] = useState([]);
-  const BarUserHandler = async () => {
+  const ShowLabelHandler = () => {
     let NewLabel = [];
     let DateLabel = [];
     Data.forEach((x) => {
       const date = new Date(x.Date);
+      const day = date.getDate();
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
-      DateLabel = [...DateLabel, x.Date];
       if (Data.length < 70) {
-        NewLabel.includes(x.Date) && (NewLabel = [...NewLabel, x.Date]);
+        NewLabel = [...NewLabel, day + " - " + MonthLabels[month] + " - " + year];
       } else if (Data.length < 140) {
         !NewLabel.includes(MonthLabels[month] + " " + year) &&
           (NewLabel = [...NewLabel, MonthLabels[month] + " " + year]);
@@ -113,7 +88,7 @@ const Monthwisechart1 = ({ Data }) => {
     });
 
     if (Data.length < 70) {
-      Set_show_label(DateLabel);
+      return NewLabel;
     } else {
       let CurrentShowLabel = [];
 
@@ -127,24 +102,65 @@ const Monthwisechart1 = ({ Data }) => {
             CurrentShowLabel = [...CurrentShowLabel, NewLabel[i]];
           }
         }
-        // console.log(CurrentShowLabel);
-        // console.log(NewLabel);
-        Set_show_label(CurrentShowLabel);
+        return CurrentShowLabel;
       } else {
-        Set_show_label(NewLabel);
+        return NewLabel;
       }
     }
+  };
 
-    const NewBarUserData = {
-      labels: DateLabel,
+  const color = ["#FF0000", "#006600"];
+
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return tooltipItem.yLabel;
+          },
+        },
+      },
+    },
+    scales: {
+      y: {
+        display: true,
+        min: getLimit() / 2,
+        //   max :
+        //   stepSize:
+        position: "right",
+      },
+      x: {
+        display: false,
+      },
+      secondXAxis: {
+        axis: "x",
+        labels: ShowLabelHandler(),
+      },
+    },
+  };
+
+  const BarUserData = () => {
+    console.log(
+      Data.reduce((datelabel, data) => {
+        datelabel = [...datelabel, data];
+        return datelabel;
+      }, [])
+    );
+    return {
+      labels: Data.reduce((datelabel, data) => {
+        datelabel = [...datelabel, data.Date];
+        return datelabel;
+      }, []),
       datasets: [
         {
           type: "bar",
           // label : "Increase",
           borderColor: "#0000FF",
           data: Data.map(
-            (y) =>
-              (Math.abs(y.Close - y.Open) + (minLimit - minLimit/3))
+            (y) => Math.abs(y.Close - y.Open) + (2 * getLimit()) / 3
           ),
           backgroundColor: Data.map((val) => {
             if (val.Open > val.Close) {
@@ -170,52 +186,15 @@ const Monthwisechart1 = ({ Data }) => {
         },
       ],
     };
-
-    SetData({ ...ChartData,BaruserData: NewBarUserData,});
-  };
-
-  const color = ["#FF0000", "#006600"];
-
-
-
-  const options = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return tooltipItem.yLabel;
-          },
-        },
-      },
-    },
-    scales: {
-      y: {
-        display: true,
-        min: (minLimit - minLimit/2),
-        //   max :
-        //   stepSize:
-        position: "right",
-      },
-      x: {
-        display: false,
-      },
-      secondXAxis: {
-        axis: "x",
-        labels: show_label_access,
-      },
-    },
   };
 
   return (
     <div>
       <h1>Charts in React</h1>
       <div className="advancechart">
-        <Chart type="line" data={BaruserData} options={options}></Chart>
+        <Chart type="line" data={BarUserData()} options={options}></Chart>
       </div>
-      <h2>{minLimit}</h2>
+      <h2>{Data.length}</h2>
     </div>
   );
 };

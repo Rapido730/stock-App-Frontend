@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Stock Market App
+
+* [Applink ](https://dolo650-stock-app.netlify.app/)
+* [Backend Server Link](https://stock-app-backend.onrender.com)
+* [Backend Github Link](https://github.com/Rapido730/stock-app-backend)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

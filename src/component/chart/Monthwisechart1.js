@@ -67,14 +67,16 @@ const Monthwisechart1 = ({ Data }) => {
 
   const ShowLabelHandler = () => {
     let NewLabel = [];
-    let DateLabel = [];
     Data.forEach((x) => {
       const date = new Date(x.Date);
       const day = date.getDate();
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
       if (Data.length < 70) {
-        NewLabel = [...NewLabel, day + " - " + MonthLabels[month] + " - " + year];
+        NewLabel = [
+          ...NewLabel,
+          day + " - " + MonthLabels[month] + " - " + year,
+        ];
       } else if (Data.length < 140) {
         !NewLabel.includes(MonthLabels[month] + " " + year) &&
           (NewLabel = [...NewLabel, MonthLabels[month] + " " + year]);
@@ -194,7 +196,6 @@ const Monthwisechart1 = ({ Data }) => {
       <div className="advancechart">
         <Chart type="line" data={BarUserData()} options={options}></Chart>
       </div>
-      <h2>{Data.length}</h2>
     </div>
   );
 };

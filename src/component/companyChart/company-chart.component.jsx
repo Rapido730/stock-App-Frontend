@@ -14,7 +14,7 @@ export const CompanyChart = () => {
 
   useEffect(() => {
     SetChartData(CompanyChartData);
-    SetCurrentChartData(CompanyChartData)
+    SetCurrentChartData(CompanyChartData);
   }, [CompanyName]);
 
   const DayWiseDataChange1 = () => {
@@ -97,16 +97,56 @@ export const CompanyChart = () => {
   // console.log(CurrentChartData);
   return (
     <div className="Advance-chart">
-      <div className="button container">
-        <button onClick={DayWiseDataChange1}>1D</button>
-        <button onClick={DayWiseDataChange2}>5D</button>
-        <button onClick={MonthWiseDataChange1}>1M</button>
-        <button onClick={MonthWiseDataChange2}>3M</button>
-        <button onClick={MonthWiseDataChange3}>6M</button>
-        <button onClick={YearWiseDataChange1}>1Y</button>
-        <button onClick={MaxData}>Max</button>
-      </div>
       <Monthwisechart1 Data={CurrentChartData} />
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={DayWiseDataChange1}
+      >
+        1D
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={DayWiseDataChange2}
+      >
+        5D
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={MonthWiseDataChange1}
+      >
+        1M
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={MonthWiseDataChange2}
+      >
+        3M
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={MonthWiseDataChange3}
+      >
+        6M
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={YearWiseDataChange1}
+      >
+        1Y
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2 mb-2"
+        onClick={MaxData}
+      >
+        Max
+      </button>
     </div>
   );
 };

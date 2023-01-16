@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+import { Range } from "./Range";
+import "./Nifty-status.css";
+import { Niftyshow } from "./Niftyshow";
+
 const { NavLink } = require("react-router-dom");
 
 const InitialNiftyValues = {
@@ -11,7 +15,7 @@ const InitialNiftyValues = {
   YearHigh: 0,
   YearLow: 10000,
   DayHigh: 0,
-  DayLow: 0,
+  DayLow: 0,   
 };
 
 export const NiftyStatus = () => {
@@ -62,116 +66,189 @@ export const NiftyStatus = () => {
 
   return (
     <div>
-      <div className="container">
-        <ul className="nav nav-tabs ">
-          <li className="active ml-3">
+      <div class="container">
+        <ul class="nav nav-tabs ">
+          <li class="active ml-3 nav-li-3">
             <a href="/">NSE</a>
           </li>
 
-          <li className="ml-3">
+          <li class="ml-3 nav-li-3">
             <a href="/">Future</a>
           </li>
-          <li className="ml-3">
+          <li class="ml-3 nav-li-3">
             <a href="/">Options</a>
           </li>
         </ul>
       </div>
 
-      <div className="container">
+      <div class="container">
+        <hr class="top-line"></hr>
         <h1>NIFTY 50</h1>
-        <div className="row">
-          <div className="col-lg-4 col-md-4 col-12  my-4">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-12  my-4">
             <h1>{CurrentNiftyValues.CurrentNiftyIndex.toFixed(2)}</h1>
 
-            <h3 className="text-success">
-              <i className="fa-solid fa-arrow-up"></i>
+            <h3 class="text-success">
+              {" "}
+              <i class="fa-solid fa-arrow-up"></i>
               {Math.abs(CurrentNiftyValues.CurrentNiftyProfit.toFixed(2))} (
               {Math.abs(
                 CurrentNiftyValues.CurrentNiftyProfitPercentage.toFixed(2)
               )}
               %)
             </h3>
+            <p>As on {Date()}</p>
           </div>
 
-          <div className="col-lg-4 col-md-4 col-12  my-4">
+          <div class="col-lg-4 col-md-4 col-12  ">
             <h3>DAY RANGE</h3>
-
-            <h2>
-              YearHigh = {CurrentNiftyValues.YearHigh.toFixed(2)} YearLow =
+            <Range
+              low={CurrentNiftyValues.DayLow.toFixed(2)}
+              high={CurrentNiftyValues.DayHigh.toFixed(2)}
+              current={CurrentNiftyValues.CurrentNiftyIndex.toFixed(2)}
+            ></Range>
+            <h3>YEAR RANGE</h3>
+            <Range
+              low={CurrentNiftyValues.YearLow.toFixed(2)}
+              high={CurrentNiftyValues.YearHigh.toFixed(2)}
+              current={CurrentNiftyValues.CurrentNiftyIndex.toFixed(2)}
+            ></Range>
+            {/* <h2>
+              {" "}
+              YearHigh = {CurrentNiftyValues.YearHigh.toFixed(2)} YearLow ={" "}
               {CurrentNiftyValues.YearLow.toFixed(2)}
             </h2>
 
             <h2>
-              DayHigh = {CurrentNiftyValues.DayHigh.toFixed(2)} DayLow =
+              {" "}
+              DayHigh = {CurrentNiftyValues.DayHigh.toFixed(2)} DayLow ={" "}
               {CurrentNiftyValues.DayLow.toFixed(2)}
-            </h2>
+            </h2> */}
+            <div className="dropdown nav-li-3-toggle-div">
+              <button
+                type="button"
+                className="btn btn-primary dropdown-toggle nav-li-3-toggle"
+                data-toggle="dropdown"
+              >
+                {"YTD"}
+              </button>
+              <div class="dropdown-menu nav-li-3">
+                <a class="dropdown-item" href="/">
+                  YTD
+                </a>
+                <a class="dropdown-item nav-li-3" href="/">
+                  MTD
+                </a>
+              </div>
+
+              <span>3.55%</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="container">
-        <ul className="nav nav-tabs ">
-          <li className="active ml-3">
+      <div class="container">
+        <ul class="nav nav-tabs ">
+          <li class="active ml-3 ml-3 nav-li-3">
             <a href="/">OVERVIEW</a>
           </li>
 
-          <li className="ml-3">
+          <li class="ml-3 ml-3 nav-li-3">
             <a href="/">CHART</a>
           </li>
-          <li className="ml-3">
+          <li class="ml-3 ml-3 nav-li-3">
             <a href="/">TECHNICALS</a>
           </li>
 
-          <li className="ml-3">
+          <li class="ml-3 ml-3 nav-li-3">
             <a href="/">NEWS</a>
           </li>
-          <li className="ml-3">
+          <li class="ml-3 ml-3 nav-li-3">
             <a href="/">CONTRIBUTION</a>
           </li>
 
-          <li className="ml-3">
+          <li class="ml-3 ml-3 nav-li-3">
             <a href="/">COMPONENTS</a>
           </li>
-          <li className="ml-3">
+          <li class="ml-3 ml-3 nav-li-3">
             <a href="/">FORUM</a>
           </li>
         </ul>
+        {/* <div class="div-nifty-buttons">
+        <ul class="nifty-buttons">
+        <li class="active ml-3 ml-3 nav-li-3">
+            <a href="/" >OVERVIEW</a>
+          </li>
+          <li class="active ml-3 ml-3 nav-li-3">
+            <a href="/" >OVERVIEW</a>
+          </li>
+          <li class="active ml-3 ml-3 nav-li-3">
+            <a href="/" >OVERVIEW</a>
+          </li>
+          <li class="active ml-3 ml-3 nav-li-3">
+            <a href="/" >OVERVIEW</a>
+          </li>
+          <li class="active ml-3 ml-3 nav-li-3">
+            <a href="/" >OVERVIEW</a>
+          </li>
+          <li class="active ml-3 ml-3 nav-li-3">
+            <a href="/" >OVERVIEW</a>
+          </li>
+         </ul>
+      </div> */}
+        <Niftyshow CurrentNiftyValues={CurrentNiftyValues}></Niftyshow>
       </div>
 
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-6 col-md-6 col-12  my-4">
-            <div className="row">
-              <div className="col-lg-3 col-md-3 col-3  my-4  ">
-                <h4>open</h4>
-                <h4>open</h4>
-                <h4>Day High</h4>
+      {/* <div class="container">
+      <Niftyshow CurrentNiftyValues = {CurrentNiftyValues}></Niftyshow>
+      </div> */}
+      {/* <div class="row">
+          <div class="col-lg-6 col-md-6 col-12  my-4">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-3  my-4 ml-5">
+                <h4> open {"                "} </h4>
+                <h4> open {"                "} </h4>
+                <h4> Day High {"             "} </h4>
               </div>
-
-              <div className="col-lg-3 col-md-3 col-3  my-4  ">
-                <h4>{CurrentNiftyValues.TodaysData.Open.toFixed(2)}</h4>
-                <h4>{CurrentNiftyValues.TodaysData.Open.toFixed(2)}</h4>
-                <h4>{CurrentNiftyValues.TodaysData.High.toFixed(2)}</h4>
+              <div class="col-lg-3 col-md-3 col-3  my-4 ml-5">
+                <h4> {CurrentNiftyValues.TodaysData.Open.toFixed(2)} </h4>
+                <h4> {CurrentNiftyValues.TodaysData.Open.toFixed(2)}</h4>
+                <h4> {CurrentNiftyValues.TodaysData.High.toFixed(2)} </h4>
               </div>
-            </div>
-          </div>
-
-          <div className="col-lg-6 col-md-6 col-12  my-4">
-            <div className="row">
-              <div className="col-lg-3 col-md-3 col-3  my-4 ">
-                <h4>DayLow</h4>
-                <h4>52 Week High</h4>
-                <h4>52 Week Low</h4>
-              </div>
-              <div className="col-lg-3 col-md-3 col-3  my-4  ">
-                <h4>{CurrentNiftyValues.TodaysData.Low.toFixed(2)}</h4>
-                <h4>{CurrentNiftyValues.YearHigh.toFixed(2)}</h4>
-                <h4>{CurrentNiftyValues.YearLow.toFixed(2)}</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </div> */}
+      {/* <h4>
+              {" "}
+              open {"                "}{" "}
+              {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              open {"                "}{" "}
+              {CurrentNiftyValues.TodaysData.Open.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              Day High {"             "}{" "}
+              {CurrentNiftyValues.TodaysData.High.toFixed(2)}
+            </h4> */}
+      {/* </div> */}
+      {/* 
+          <div class="col-lg-6 col-md-6 col-12  my-4">
+            <h4>
+              {" "}
+              DayLow {"     "} {CurrentNiftyValues.TodaysData.Low.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              52 Week High {"     "} {CurrentNiftyValues.YearHigh.toFixed(2)}
+            </h4>
+            <h4>
+              {" "}
+              52 Week Low {"     "} {CurrentNiftyValues.YearLow.toFixed(2)}
+            </h4>
+          </div> */}
+      {/* </div>
+      </div> */}
     </div>
   );
 };

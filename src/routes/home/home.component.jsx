@@ -14,7 +14,7 @@ export const Home = () => {
   const getNiftyIndexData = async () => {
     const NSEdata = await getMethod("/sensexApi/nse");
     const BSEdata = await getMethod("/sensexApi/bse");
-    return { NSEdata:NSEdata.data, BSEdata:BSEdata.data };
+    return { NSEdata: NSEdata.data, BSEdata: BSEdata.data };
   };
 
   const getCompanyStockData = async () => {
@@ -30,16 +30,15 @@ export const Home = () => {
       eichermotData: eichermotData.data,
       ashokleyData: ashokleyData.data,
     };
-  };  
-
+  };
 
   useEffect(() => {
     const getAllData = async () => {
       const NiftyIndexData = await getNiftyIndexData();
       const companyStockData = await getCompanyStockData();
-      console.log("called")
       dispatch(Set_Company_data(companyStockData));
       dispatch(Set_Nifty_Index_Data(NiftyIndexData));
+      console.log(companyStockData);
     };
 
     getAllData();
